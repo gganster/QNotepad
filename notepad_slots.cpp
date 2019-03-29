@@ -2,7 +2,7 @@
 
 void Notepad::open_slot()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Open an file", QString(), "Files");
+    QString path = QFileDialog::getOpenFileName(this, "Open an file", QString(), "");
 
     if (path.isEmpty())
         return;
@@ -18,17 +18,20 @@ void Notepad::save_slot()
         save_as_slot();
         return;
     }
+    if (save(path))
+        return;
+    else
+        QMessageBox::warning(this, "error", "Error when write file");
 }
 
 void Notepad::save_as_slot()
 {
-    QString path = QFileDialog::getSaveFileName(this, "Open an file", QString(), "Files");
+    QString path = QFileDialog::getSaveFileName(this, "Open an file", QString(), "");
 
+    QMessageBox::information(this, "test", path);
     if (path.isEmpty())
         return;
-    QFile file(path);
-
-    if (!save(path))
+    if (save(path))
         return;
     else
         QMessageBox::warning(this, "error", "Error when write file");
@@ -43,4 +46,11 @@ void Notepad::new_file_slot()
 void Notepad::modify_text()
 {
     is_saved = false;
+}
+
+void Notepad::close_slot()
+{
+    if (this->is_saved)
+            return;
+
 }

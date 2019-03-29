@@ -32,6 +32,7 @@ public slots:
     void save_as_slot();
     void new_file_slot();
     void modify_text();
+    void close_slot();
 
 private:
     QMenuBar *m_menubar;
@@ -39,7 +40,7 @@ private:
 
     QTextEdit *m_main;
     QString path = "0";
-    bool is_saved = false;
+    bool is_saved = true;
 
     QStatusBar *m_statusbar;
 };

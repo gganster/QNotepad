@@ -61,8 +61,6 @@ bool Notepad::save(QString path)
 {
     QFile *file;
 
-    if (this->path == "0")
-        return (0);
     file = new QFile(path);
     if (!file->open(QIODevice::ReadWrite | QIODevice::Text | QIODevice::Truncate))
         return (0);
@@ -70,5 +68,7 @@ bool Notepad::save(QString path)
     stream << this->m_main->toPlainText();
     this->path = path;
     this->is_saved = true;
+    file->close();
+    delete file;
     return (1);
 }
