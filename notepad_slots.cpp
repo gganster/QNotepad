@@ -75,5 +75,11 @@ void Notepad::color_slot()
     QPalette palette(color);
     m_main->setPalette(palette);
     m_main->setTextColor(color);
+}
 
+void Notepad::about_dev()
+{
+    QMessageBox::information(this, "about", "developper: Guilian Ganster\n"
+                                            "github: https://github.com/zoraneus\n"
+                                            "website: ganster-dev.fr");
 }

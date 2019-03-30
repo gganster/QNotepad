@@ -31,14 +31,17 @@ Notepad::Notepad(QWidget *parent) : QMainWindow(parent)
     m_menu[ABOUT] = new QMenu("&About");
         QAction *dev = new QAction("&Dev");
             m_menu[ABOUT]->addAction(dev);
+            connect(dev, SIGNAL(triggered()), this, SLOT(about_dev()));
         QAction *qt = new QAction("&Qt");
             m_menu[ABOUT]->addAction(qt);
+            connect(qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
     connect(m_main, SIGNAL(textChanged()), this, SLOT(modify_text()));
     connect(this, SIGNAL(aboutToClose()), this, SLOT(close_slot()));
     for (int i = 0; i < NB_MENU; i++)
         m_menubar->addMenu(m_menu[i]);
 
+    setMinimumSize(800, 600);
     this->setMenuBar(m_menubar);
     this->setCentralWidget(m_main);
 }

@@ -17,6 +17,7 @@
 #include <QFontDialog>
 #include <QFont>
 #include <QColorDialog>
+#include <QApplication>
 
 #define NB_MENU 3
 enum {FILE_SAVE, DISPLAY, ABOUT};
@@ -41,6 +42,7 @@ public slots:
     void close_slot();
     void font_slot();
     void color_slot();
+    void about_dev();
 
     //interception de fermeture de la fenêtre
     void closeEvent(QCloseEvent *event){
