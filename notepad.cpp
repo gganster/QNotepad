@@ -24,8 +24,10 @@ Notepad::Notepad(QWidget *parent) : QMainWindow(parent)
     m_menu[DISPLAY] = new QMenu("&Display");
         QAction *color = new QAction("&Color");
             m_menu[DISPLAY]->addAction(color);
+            connect(color, SIGNAL(triggered()), this, SLOT(color_slot()));
         QAction *font = new QAction("&Font");
             m_menu[DISPLAY]->addAction(font);
+            connect(font, SIGNAL(triggered()), this, SLOT(font_slot()));
     m_menu[ABOUT] = new QMenu("&About");
         QAction *dev = new QAction("&Dev");
             m_menu[ABOUT]->addAction(dev);
@@ -33,6 +35,7 @@ Notepad::Notepad(QWidget *parent) : QMainWindow(parent)
             m_menu[ABOUT]->addAction(qt);
 
     connect(m_main, SIGNAL(textChanged()), this, SLOT(modify_text()));
+    connect(this, SIGNAL(aboutToClose()), this, SLOT(close_slot()));
     for (int i = 0; i < NB_MENU; i++)
         m_menubar->addMenu(m_menu[i]);
 

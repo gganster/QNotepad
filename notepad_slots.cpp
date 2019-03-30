@@ -2,6 +2,11 @@
 
 void Notepad::open_slot()
 {
+    if (this->is_saved == false) {
+        int save = QMessageBox::question(this, "save", "the file is'nt saved, would you save ?", QMessageBox::Yes | QMessageBox::No);
+        if (save == QMessageBox::Yes)
+            save_slot();
+    }
     QString path = QFileDialog::getOpenFileName(this, "Open an file", QString(), "");
 
     if (path.isEmpty())
@@ -28,7 +33,6 @@ void Notepad::save_as_slot()
 {
     QString path = QFileDialog::getSaveFileName(this, "Open an file", QString(), "");
 
-    QMessageBox::information(this, "test", path);
     if (path.isEmpty())
         return;
     if (save(path))
@@ -52,5 +56,24 @@ void Notepad::close_slot()
 {
     if (this->is_saved)
             return;
+    int save = QMessageBox::question(this, "save", "the file is'nt saved, would you save ?", QMessageBox::Yes | QMessageBox::No);
+    if (save == QMessageBox::Yes)
+        save_slot();
+}
+
+void Notepad::font_slot()
+{
+    bool selected = false;
+    QFont font = QFontDialog::getFont(&selected, m_main->font(), this, "choose a font");
+    if (selected)
+        m_main->setFont(font);
+}
+
+void Notepad::color_slot()
+{
+    QColor color = QColorDialog::getColor(m_main->textColor(), this, "select color");
+    QPalette palette(color);
+    m_main->setPalette(palette);
+    m_main->setTextColor(color);
 
 }

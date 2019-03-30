@@ -14,6 +14,9 @@
 #include <QTextStream>
 #include <string>
 #include <QMessageBox>
+#include <QFontDialog>
+#include <QFont>
+#include <QColorDialog>
 
 #define NB_MENU 3
 enum {FILE_SAVE, DISPLAY, ABOUT};
@@ -26,6 +29,9 @@ public:
     bool open(QString path);
     bool save(QString path);
 
+signals:
+    void aboutToClose();
+
 public slots:
     void open_slot();
     void save_slot();
@@ -33,6 +39,14 @@ public slots:
     void new_file_slot();
     void modify_text();
     void close_slot();
+    void font_slot();
+    void color_slot();
+
+    //interception de fermeture de la fenêtre
+    void closeEvent(QCloseEvent *event){
+        QWidget::closeEvent(event);
+        emit aboutToClose();
+    }
 
 private:
     QMenuBar *m_menubar;
